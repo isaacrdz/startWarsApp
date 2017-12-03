@@ -15,10 +15,6 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var characterArray:[Character] = [Character]()
-    
-    let character = Character()
-    
     let baseURL = "https://swapi.co/api/people"
     
     override func viewDidLoad() {
@@ -27,21 +23,22 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
-        getAllCharacters(url: baseURL)
     }
     
    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return characterArray.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterCell {
             
+            let character = ["Darth Vader","Anakin"]
             
+            cell.characterLabel.text = character[indexPath.row]
             
           
             
@@ -60,9 +57,8 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
                 print("Got Character Data!")
                 
                 let characterJSON: JSON = JSON(response.result.value!)
+                print(characterJSON)
                 
-                self.updateCharacterData(json: characterJSON)
-               
             } else {
                 print("Error")
             }
@@ -70,13 +66,7 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    func updateCharacterData(json: JSON){
-        character.name = json["results"]["name"].stringValue
-        
-        
-        
-    }
-    
+   
     //MARK: - UI Updates
     /***************************************************************/
     
@@ -84,5 +74,5 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
    
 
 
-}
 
+}
