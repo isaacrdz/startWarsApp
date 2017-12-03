@@ -15,6 +15,8 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var characterArray = [Character]()
+    
     let baseURL = "https://swapi.co/api/people"
     
     override func viewDidLoad() {
