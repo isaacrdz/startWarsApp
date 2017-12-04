@@ -16,17 +16,20 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         
+        
         DataService.instance.getAllCharacters { (Success) in
             
+            self.tableView.reloadData()
+                
+           
+            
         }
-        
     }
     
    
@@ -40,11 +43,13 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterCell {
             
-            let character = DataService.instance.characters[indexPath.row]
+         let character = DataService.instance.characters[indexPath.row]
+            
             
             cell.configureCell(character: character)
-          
+            
             return cell
+            
         }
         
         return CharacterCell()

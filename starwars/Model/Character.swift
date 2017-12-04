@@ -15,6 +15,6 @@ struct Character{
     
     init(fromJSON json:JSON){
         if json.isEmpty {return}
-        characterName = json["name"].string
+        characterName = json["name"].stringValue
     }
 }
