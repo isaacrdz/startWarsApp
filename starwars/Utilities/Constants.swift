@@ -10,4 +10,4 @@ import Foundation
 
 typealias CompletionHandler = (_ Success: Bool) -> ()
 
-let baseURL = "https://swapi.co/api/people"
+let baseURL = "https://swapi.co/api/people/"

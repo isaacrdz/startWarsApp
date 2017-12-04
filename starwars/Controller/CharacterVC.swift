@@ -40,39 +40,17 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterCell {
             
-            
-            
             let character = DataService.instance.characters[indexPath.row]
             
             cell.configureCell(character: character)
-            
           
-            
             return cell
         }
         
         return CharacterCell()
     }
     
-    func getAllCharacters(url: String){
-        
-        Alamofire.request(url, method: .get).responseJSON {
-            response in
-            
-            if response.result.isSuccess {
-                
-                
-                print("Got Character Data!")
-                
-                let characterJSON: JSON = JSON(response.result.value!)
-                print(characterJSON)
-                
-            } else {
-                print("Error")
-            }
-            
-        }
-    }
+  
 
    
 

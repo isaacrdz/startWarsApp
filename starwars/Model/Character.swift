@@ -8,9 +8,13 @@
 
 import Foundation
 
-struct Character: Decodable {
+import SwiftyJSON
+
+struct Character{
+    var characterName:String?
     
-  public private(set) var characterName: String!
-    
-  
+    init(fromJSON json:JSON){
+        if json.isEmpty {return}
+        characterName = json["name"].string
+    }
 }

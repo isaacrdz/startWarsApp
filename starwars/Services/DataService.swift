@@ -14,43 +14,23 @@ import SwiftyJSON
 class DataService {
     
     static let instance = DataService()
-    
     var characters = [Character]()
     
     func getAllCharacters(completion: @escaping CompletionHandler){
-        
-        Alamofire.request(baseURL, method: .get).responseJSON {
-            response in
-            
-            if response.result.error == nil {
-                
-                
-                
-                guard let data = response.data else { return }
-                
-                do {
-                    if let json = try JSON( data: data).array {
-                        for item in json {
-                            let name = item["name"].stringValue
-                            
-                            
-                            let character = Character(characterName: name)
-                            
-                            self.characters.append(character)
+        Alamofire.request(baseURL, method: .get).responseJSON { response in
+            debugPrint(response)
+            if(response.result.isSuccess){
+                if let data = response.result.value{
+                    let json = JSON(data)
+                    if let characters = json["results"].array {
+                        for character in characters {
+                            self.characters.append(Character(fromJSON: character) )
                         }
-                        print(self.characters[0].characterName)
                         completion(true)
                     }
-                } catch {
-                    print("error")
                 }
-                
-                
-                
-            } else {
-                completion(false)
-                debugPrint(response.result.error as Any)
             }
-        
+        }
+        completion(false)
     }
-    } }
+}
