@@ -7,9 +7,10 @@
 //
 
 import Foundation
-class Character {
+
+struct Character: Decodable {
     
-    var name: String = ""
+  public private(set) var characterName: String!
     
   
 }

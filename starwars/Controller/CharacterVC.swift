@@ -15,9 +15,7 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var characterArray = [Character]()
     
-    let baseURL = "https://swapi.co/api/people"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,22 +23,28 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
+        DataService.instance.getAllCharacters { (Success) in
+            
+        }
+        
     }
     
    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return DataService.instance.characters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "characterCell", for: indexPath) as? CharacterCell {
             
-            let character = ["Darth Vader","Anakin"]
             
-            cell.characterLabel.text = character[indexPath.row]
+            
+            let character = DataService.instance.characters[indexPath.row]
+            
+            cell.configureCell(character: character)
             
           
             
@@ -56,6 +60,8 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
             response in
             
             if response.result.isSuccess {
+                
+                
                 print("Got Character Data!")
                 
                 let characterJSON: JSON = JSON(response.result.value!)
@@ -69,12 +75,8 @@ class CharacterVC: UIViewController,UITableViewDelegate, UITableViewDataSource {
     }
 
    
-    //MARK: - UI Updates
-    /***************************************************************/
+
+   
     
-   
-   
-
-
 
 }

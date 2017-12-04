@@ -14,7 +14,10 @@ class CharacterCell: UITableViewCell {
     @IBOutlet weak var characterLabel: UILabel!
     
    
-   
+    func configureCell(character : Character) {
+        let name = character.characterName ?? ""
+        characterLabel.text = name
+    }
 
 
 }
